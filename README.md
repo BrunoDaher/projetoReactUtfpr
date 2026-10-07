@@ -1,17 +1,13 @@
 # 🛒 UTFPR Store — Catálogo & Gestão de Produtos
 
-[![CI - Integracao Continua](https://github.com/BrunoDaher/utfpr/actions/workflows/ci.yml/badge.svg)]
-   (https://github.com/BrunoDaher/utfpr/actions)
-[![CD - Deploy Continuo GitHub Pages](https://github.com/BrunoDaher/utfpr/actions/workflows/cd.yml/badge.svg)]    
-   (https://github.com/BrunoDaher/utfpr/actions)
+[![CI - Integracao Continua](https://github.com/BrunoDaher/projetoReactUtfpr/actions/workflows/ci.yml/badge.svg)](https://github.com/BrunoDaher/projetoReactUtfpr/actions)
+[![CD - Deploy Continuo GitHub Pages](https://github.com/BrunoDaher/projetoReactUtfpr/actions/workflows/cd.yml/badge.svg)](https://github.com/BrunoDaher/projetoReactUtfpr/actions)
 
 **Deploy em Produção (GitHub Pages):** 
-   [https://brunodaher.github.io/utfpr/Disciplina3/Projeto/dist/]
-   (https://brunodaher.github.io/utfpr/Disciplina3/Projeto/dist/)  
+[https://brunodaher.github.io/projetoReactUtfpr/](https://brunodaher.github.io/projetoReactUtfpr/)
 
 **Repositório GitHub:** 
-   [https://github.com/BrunoDaher/utfpr]
-   (https://github.com/BrunoDaher/utfpr)
+[https://github.com/BrunoDaher/projetoReactUtfpr](https://github.com/BrunoDaher/projetoReactUtfpr)
 
 
 ## 🎯 Sobre o Projeto
@@ -38,8 +34,8 @@ Para testar a área administrativa protegida (`/admin`), utilize as seguintes cr
 ### Passo a passo
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/BrunoDaher/utfpr.git
-   cd utfpr/Disciplina3/Projeto
+   git clone https://github.com/BrunoDaher/projetoReactUtfpr.git
+   cd projetoReactUtfpr
    ```
 
 2. Instale as dependências:
@@ -51,7 +47,7 @@ Para testar a área administrativa protegida (`/admin`), utilize as seguintes cr
    ```bash
    yarn dev
    ```
-   Acesse a aplicação no navegador em `http://localhost:5173`.
+   Acesse a aplicação no navegador em `http://localhost:5173` ou porta determinada pelo terminal
 
 4. Executar checagem de tipos e build de produção:
    ```bash
@@ -62,7 +58,7 @@ Para testar a área administrativa protegida (`/admin`), utilize as seguintes cr
    ```bash
    yarn preview
    ```
-   Acesse a aplicação no navegador em `http://localhost:4173`.
+   Acesse a aplicação no navegador em `http://localhost:4173` ou porta determinada pelo terminal
 
 ---
 
@@ -89,8 +85,7 @@ yarn test:e2e
  **1. Componentes e tipagem TypeScript** 
  Projeto gerado com Vite + React + TypeScript estrito (`strict: true`, sem uso de `any`). Componentes desacoplados e tipificados via interfaces e schemas Zod inferidos. 
   [`ProductCard.tsx`](src/components/product/ProductCard.tsx), 
-  [`product.schema.ts`]
-  (src/schemas/product.schema.ts) 
+  [`product.schema.ts`](src/schemas/product.schema.ts) 
  
  **2. Estado reativo, imutabilidade e ciclo de vida**  Estados gerenciados com `useState`, imutabilidade garantida com spread operators (`...items`), ciclo de vida gerenciado com dependências estritas de `useEffect` e cleanups para evitar memory leaks.  
  [`CartContext.tsx`](src/contexts/CartContext.tsx), 
