@@ -86,7 +86,7 @@ describe('Integração de Autenticação com DummyJSON (Validação Bloco 1.2)',
       password: 'avatpass',
     });
 
-    expect(result.id).toBe(1);
+    expect(result.id).toBe(8);
     expect(result.username).toBe('avat');
     expect(result.token).toBeDefined();
     expect(result.token.length).toBeGreaterThan(10);

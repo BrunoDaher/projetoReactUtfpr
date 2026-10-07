@@ -44,7 +44,7 @@ describe('ProductCard Component (Requisito 8)', () => {
       <ProductCard product={mockProduct} onAddToCart={handleAddToCart} />,
     );
 
-    const buyButton = screen.getByRole('button', { name: /comprar/i });
+    const buyButton = screen.getByRole('button', { name: /incluir/i });
     await user.click(buyButton);
 
     expect(handleAddToCart).toHaveBeenCalledTimes(1);
@@ -59,7 +59,7 @@ describe('ProductCard Component (Requisito 8)', () => {
 
     renderWithProviders(<ProductCard product={outOfStockProduct} />);
 
-    const buyButton = screen.getByRole('button', { name: /comprar/i });
+    const buyButton = screen.getByRole('button', { name: /incluir/i });
     expect(buyButton).toBeDisabled();
     expect(screen.getByText(/esgotado/i)).toBeInTheDocument();
   });

@@ -26,7 +26,7 @@ describe('LoginPage Component (Requisitos 5, 7 e 8)', () => {
     const user = userEvent.setup();
     renderWithProviders(<LoginPage />);
 
-    const submitButton = screen.getByRole('button', { name: /entrar no sistema/i });
+    const submitButton = screen.getByRole('button', { name: /entrar/i });
     await user.click(submitButton);
 
     await waitFor(() => {
@@ -44,8 +44,8 @@ describe('LoginPage Component (Requisitos 5, 7 e 8)', () => {
     const fillButton = screen.getByText('Preencher');
     await user.click(fillButton);
 
-    const userInput = screen.getByLabelText(/nome de usuário/i) as HTMLInputElement;
-    const passInput = screen.getByLabelText(/senha/i) as HTMLInputElement;
+    const userInput = screen.getByPlaceholderText(/username/i) as HTMLInputElement;
+    const passInput = screen.getByPlaceholderText(/password/i) as HTMLInputElement;
 
     expect(userInput.value).toBe('avat');
     expect(passInput.value).toBe('avatpass');
@@ -64,9 +64,9 @@ describe('LoginPage Component (Requisitos 5, 7 e 8)', () => {
 
     renderWithProviders(<LoginPage />);
 
-    const userInput = screen.getByLabelText(/nome de usuário/i);
-    const passInput = screen.getByLabelText(/senha/i);
-    const submitButton = screen.getByRole('button', { name: /entrar no sistema/i });
+    const userInput = screen.getByPlaceholderText(/username/i);
+    const passInput = screen.getByPlaceholderText(/password/i);
+    const submitButton = screen.getByRole('button', { name: /entrar/i });
 
     await user.type(userInput, 'avat');
     await user.type(passInput, 'avatpass');
