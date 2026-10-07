@@ -58,6 +58,12 @@ Para testar a área administrativa protegida (`/admin`), utilize as seguintes cr
    yarn build
    ```
 
+5. Visualizar o build de produção localmente (Preview):
+   ```bash
+   yarn preview
+   ```
+   Acesse a aplicação no navegador em `http://localhost:4173`.
+
 ---
 
 ## 🧪 Bateria de Testes Automatizados
@@ -78,59 +84,18 @@ yarn test:e2e
 
 ## ✅ Atendimento aos 10 Requisitos Técnicos
 
- Requisito Técnico | Como foi atendido na arquitetura | Arquivos de Referência |
-
- **1. Componentes e tipagem TypeScript**  
- Projeto gerado com Vite + React + TypeScript estrito (`strict: true`, sem uso de `any`).
-Componentes desacoplados e tipificados via interfaces e schemas Zod inferidos.  
-   [`ProductCard.tsx`](src/components/product/ProductCard.tsx), 
-   [`product.schema.ts`](src/schemas/product.schema.ts) 
-
-**2. Estado reativo, imutabilidade e ciclo de vida**  
-Estados gerenciados com `useState`, imutabilidade garantida com spread operators (`...items`), ciclo de vida gerenciado com dependências estritas de `useEffect` e cleanups para evitar memory leaks.  
-  [`CartContext.tsx`](src/contexts/CartContext.tsx), 
-  [`ProductsPage.tsx`](src/pages/public/ProductsPage.tsx) 
-
-**3. Estado global com Context API e Custom Hooks**  
-Sessão (`AuthContext`) e carrinho (`CartContext`) centralizados via Context API.  
-Abstração em hooks dedicados (`useAuth`, `useCart`) que lançam erro explícito quando usados fora do respectivo Provider.  
-  [`AuthContext.tsx`](src/contexts/AuthContext.tsx), 
-  [`useAuth.ts`](src/hooks/useAuth.ts), 
-  [`useCart.ts`](src/hooks/useCart.ts) 
-
-**4. Roteamento e layouts com React Router**  
-Estrutura declarativa com layouts persistentes (`AppLayout`, `AdminLayout`), `<Outlet />`, indicação de rota ativa via `<NavLink>`, rotas dinâmicas (`/produtos/:id` com `useParams`) e navegação programática (`useNavigate`).  
-  [`App.tsx`](src/App.tsx), 
-  [`AppLayout.tsx`](src/layouts/AppLayout.tsx), 
-  [`ProductDetailPage.tsx`](src/pages/public/ProductDetailPage.tsx) 
-
-| **5. Interface e formulários com Mantine UI** | Tema global configurado em `theme.ts`, `@mantine/core` com design responsivo (`SimpleGrid`, `AppShell`, `Table`, `Card`,`Flex`'), formulários com `@mantine/form`, skeletons e overlays de feedback. | [`theme.ts`](src/styles/theme.ts), [`ManageProductsPage.tsx`](src/pages/admin/ManageProductsPage.tsx) |
-
+| Requisito Técnico | Como foi atendido na arquitetura | Arquivos de Referência |
+|---|---|---|
+| **1. Componentes e tipagem TypeScript** | Projeto gerado com Vite + React + TypeScript estrito (`strict: true`, sem uso de `any`). Componentes desacoplados e tipificados via interfaces e schemas Zod inferidos. | [`ProductCard.tsx`](src/components/product/ProductCard.tsx), [`product.schema.ts`](src/schemas/product.schema.ts) |
+| **2. Estado reativo, imutabilidade e ciclo de vida** | Estados gerenciados com `useState`, imutabilidade garantida com spread operators (`...items`), ciclo de vida gerenciado com dependências estritas de `useEffect` e cleanups para evitar memory leaks. | [`CartContext.tsx`](src/contexts/CartContext.tsx), [`ProductsPage.tsx`](src/pages/public/ProductsPage.tsx) |
+| **3. Estado global com Context API e Custom Hooks** | Sessão (`AuthContext`) e carrinho (`CartContext`) centralizados via Context API. Abstração em hooks dedicados (`useAuth`, `useCart`) que lançam erro explícito quando usados fora do respectivo Provider. | [`AuthContext.tsx`](src/contexts/AuthContext.tsx), [`useAuth.ts`](src/hooks/useAuth.ts), [`useCart.ts`](src/hooks/useCart.ts) |
+| **4. Roteamento e layouts com React Router** | Estrutura declarativa com layouts persistentes (`AppLayout`, `AdminLayout`), `<Outlet />`, indicação de rota ativa via `<NavLink>`, rotas dinâmicas (`/produtos/:id` com `useParams`) e navegação programática (`useNavigate`). | [`App.tsx`](src/App.tsx), [`AppLayout.tsx`](src/layouts/AppLayout.tsx), [`ProductDetailPage.tsx`](src/pages/public/ProductDetailPage.tsx) |
+| **5. Interface e formulários com Mantine UI** | Tema global configurado em `theme.ts`, `@mantine/core` com design responsivo (`SimpleGrid`, `AppShell`, `Table`, `Card`,`Flex`), formulários com `@mantine/form`, skeletons e overlays de feedback. | [`theme.ts`](src/styles/theme.ts), [`ManageProductsPage.tsx`](src/pages/admin/ManageProductsPage.tsx) |
 | **6. Autenticação JWT e rotas protegidas** | Login consumindo `POST /auth/login` da DummyJSON. Armazenamento de token e usuário no `localStorage`. Rota `/admin` protegida por guarda `ProtectedRoute` com preservação da rota de origem. | [`ProtectedRoute.tsx`](src/routes/ProtectedRoute.tsx), [`LoginPage.tsx`](src/pages/public/LoginPage.tsx), [`AuthContext.tsx`](src/contexts/AuthContext.tsx) |
-
- **7. API REST, interceptors e Zod** | Cliente Axios centralizado (`src/services/api.ts`) apontando para `https://dummyjson.com`. Request interceptor injeta `Authorization: Bearer <token>`. Response interceptor trata erros com Mantine Notifications. Validação contratual via Zod com `.safeParse()` e integração no Mantine com `zodResolver`. | 
-[`api.ts`](src/services/api.ts), [`auth.schema.ts`](src/schemas/auth.schema.ts), [`product.schema.ts`](src/schemas/product.schema.ts) |
-
-**8. Testes automatizados (Vitest + RTL)** 
-100% de cobertura nos requisitos centrais utilizando Vitest, React Testing Library e `@testing-library/user-event`. 
-Consultas semânticas por acessibilidade (`getByRole`, `getByLabelText`). 
-Wrapper em memória com `test-utils.tsx`. 
-   [`product.schema.test.ts`](src/schemas/product.schema.test.ts), 
-   [`useCart.test.tsx`](src/hooks/useCart.test.tsx), 
-   [`ProductCard.test.tsx`](src/components/product/ProductCard.test.tsx), 
-   [`LoginPage.test.tsx`](src/pages/public/LoginPage.test.tsx) 
-
- **9. Testes ponta a ponta (Playwright)**  
-Dois fluxos E2E automatizados em modo headless com Chromium: 
-   (1) bloqueio de rota protegida e autenticação com redirecionamento; 
-   (2) busca de produto no catálogo, abertura de detalhes dinâmicos e adição ao carrinho com badge atualizado. | [`playwright.config.ts`](playwright.config.ts), 
-   [`auth.spec.ts`](tests/e2e/auth.spec.ts), 
-   [`catalog.spec.ts`](tests/e2e/catalog.spec.ts) 
-
- **10. Pipeline de CI/CD e Deploy**  
-Workflows GitHub Actions configurados: `ci.yml` (validação de tipos, testes Vitest e testes E2E Playwright a cada push/PR) e `cd.yml` (build de produção, geração de fallback `404.html` para SPAs e deploy automatizado no GitHub Pages).  
-   [`.github/workflows/ci.yml`](.github/workflows/ci.yml), 
-   [`.github/workflows/cd.yml`](.github/workflows/cd.yml) |
+| **7. API REST, interceptors e Zod** | Cliente Axios centralizado (`src/services/api.ts`) apontando para `https://dummyjson.com`. Request interceptor injeta `Authorization: Bearer <token>`. Response interceptor trata erros com Mantine Notifications. Validação contratual via Zod com `.safeParse()` e integração no Mantine com `zodResolver`. | [`api.ts`](src/services/api.ts), [`auth.schema.ts`](src/schemas/auth.schema.ts), [`product.schema.ts`](src/schemas/product.schema.ts) |
+| **8. Testes automatizados (Vitest + RTL)** | 100% de cobertura nos requisitos centrais utilizando Vitest, React Testing Library e `@testing-library/user-event`. Consultas semânticas por acessibilidade (`getByRole`, `getByLabelText`). Wrapper em memória com `test-utils.tsx`. | [`product.schema.test.ts`](src/schemas/product.schema.test.ts), [`useCart.test.tsx`](src/hooks/useCart.test.tsx), [`ProductCard.test.tsx`](src/components/product/ProductCard.test.tsx), [`LoginPage.test.tsx`](src/pages/public/LoginPage.test.tsx) |
+| **9. Testes ponta a ponta (Playwright)** | Dois fluxos E2E automatizados em modo headless com Chromium: (1) bloqueio de rota protegida e autenticação com redirecionamento; (2) busca de produto no catálogo, abertura de detalhes dinâmicos e adição ao carrinho com badge atualizado. | [`playwright.config.ts`](playwright.config.ts), [`auth.spec.ts`](tests/e2e/auth.spec.ts), [`catalog.spec.ts`](tests/e2e/catalog.spec.ts) |
+| **10. Pipeline de CI/CD e Deploy** | Workflows GitHub Actions configurados: `ci.yml` (validação de tipos, testes Vitest e testes E2E Playwright a cada push/PR) e `cd.yml` (build de produção, geração de fallback `404.html` para SPAs e deploy automatizado no GitHub Pages). | [`.github/workflows/ci.yml`](.github/workflows/ci.yml), [`.github/workflows/cd.yml`](.github/workflows/cd.yml) |
 
 ---
 

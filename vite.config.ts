@@ -10,7 +10,6 @@ export default defineConfig({
     devSourcemap: true,
   },
 
-
   // Ajuste correto: sourcemap fica apenas dentro de build
   build: {
     sourcemap: true,
@@ -34,5 +33,5 @@ export default defineConfig({
     },
   },
 
-  base: process.env.NODE_ENV === 'production' ? '/projetoReact/dist/' : '/',
+  base: '/projetoReactUtfpr/dist/',
 });
