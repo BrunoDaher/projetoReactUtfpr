@@ -33,5 +33,5 @@ export default defineConfig({
     },
   },
 
-  base: '/projetoReactUtfpr/dist/',
+  base: '/projetoReactUtfpr/',
 });
